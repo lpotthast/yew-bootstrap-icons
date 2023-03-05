@@ -1,7 +1,7 @@
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used)]
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use darling::*;
 use proc_macro::TokenStream;
@@ -117,16 +117,22 @@ pub fn store(input: TokenStream) -> TokenStream {
 fn extract_keys(json_source: String) -> Vec<String> {
     let root = PathBuf::from("./");
     let path = PathBuf::from(json_source);
+    let alt_path = PathBuf::from(format!("crates/yew-bootstrap-icons/{}", path.display()));
+
     let config = match std::fs::read_to_string(&path) {
         Ok(content) => content,
-        Err(err) => abort!(
-            Span::call_site(),
-            format!(
-                "Json source '{path:?}' in {root:?} not found: {err}",
-                root = std::fs::canonicalize(&root)
-            )
-        ),
+        Err(err) => match std::fs::read_to_string(&alt_path) {
+            Ok(content) => content,
+            Err(alt_err) => abort!(
+                Span::call_site(),
+                format!(
+                    "Json source could not be read from '{path:?}' or '{alt_path:?}' in root {root:?}. err = {err}, alt_err = {alt_err}",
+                    root = std::fs::canonicalize(&root)
+                )
+            ),
+        },
     };
+
     let parsed: serde_json::Value = serde_json::from_str(&config).expect("Unable to parse JSON...");
     let keys: Vec<String> = parsed
         .as_object()

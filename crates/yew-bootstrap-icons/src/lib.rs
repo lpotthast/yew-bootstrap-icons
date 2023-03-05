@@ -3,7 +3,7 @@ use derive_yew_bootstrap_icons::YewBootstrapIcons;
 #[derive(YewBootstrapIcons)]
 #[yew_bootstrap_icons(
     mod_name = "v1_10_3",
-    json_path = "crates/yew-bootstrap-icons-build-deps/res/v1_10_3/bootstrap-icons.json",
+    json_path = "./res/v1_10_3/bootstrap-icons.json",
     prefix = "Bi",
     always_add_prefix = false,
     default = "Question"
