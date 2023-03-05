@@ -74,8 +74,6 @@ pub fn store(input: TokenStream) -> TokenStream {
 
     quote! {
         pub mod #mod_ident {
-            //! bootstrap-icons v1.8.3
-
             #![forbid(unsafe_code)]
             #![deny(clippy::unwrap_used)]
 
@@ -87,7 +85,6 @@ pub fn store(input: TokenStream) -> TokenStream {
                 }
             }
 
-            // Implements the '*Id' struct as well as the 'Id' trait.
             #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy, serde::Serialize, serde::Deserialize)]
             pub enum Bi {
                 #(#variants),*
