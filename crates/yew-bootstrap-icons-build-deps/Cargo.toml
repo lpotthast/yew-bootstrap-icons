@@ -1,0 +1,6 @@
+[package]
+name = "yew-bootstrap-icons-build-deps"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

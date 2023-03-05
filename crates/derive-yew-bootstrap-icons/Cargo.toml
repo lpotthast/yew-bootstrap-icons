@@ -1,0 +1,28 @@
+[package]
+name = "derive-yew-bootstrap-icons"
+version = "0.0.1"
+edition = "2021"
+autotests = false
+
+[lib]
+proc-macro = true
+
+[[test]]
+name = "tests"
+path = "tests/progress.rs"
+
+[dev-dependencies]
+serde = "1"
+serde_json = "1"
+trybuild = { version = "1", features = ["diff"] }
+
+[dependencies]
+darling = "0.14"
+proc-macro-error = "1"
+proc-macro-type-name = "0.1"
+proc-macro2 = "1"
+quote = "1"
+serde = "1"
+serde_json = "1"
+syn = { version = "1", features = ["extra-traits"] }
+yew-bootstrap-icons-build-deps = { path = "../yew-bootstrap-icons-build-deps" }
